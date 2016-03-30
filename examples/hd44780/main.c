@@ -7,12 +7,8 @@
  *
  */
 
-#include <stdbool.h>
-#include <stdint.h>
 #include <stdio.h>
 #include "nrf_delay.h"
-#include "nrf_gpio.h"
-#include "boards.h"
 #include "nrf_hd44780.h"
 
 /**
