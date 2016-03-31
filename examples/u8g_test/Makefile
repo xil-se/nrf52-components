@@ -45,6 +45,7 @@ $(NRF52_SDK)/components/drivers_nrf/common/nrf_drv_common.c \
 $(NRF52_SDK)/components/drivers_nrf/gpiote/nrf_drv_gpiote.c \
 $(NRF52_SDK)/components/drivers_nrf/spi_master/nrf_drv_spi.c \
 ./main.c \
+./draw.c \
 ./u8g/u8g_arm.c \
 ./u8g/u8g_bitmap.c \
 ./u8g/u8g_circle.c \
