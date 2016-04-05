@@ -124,7 +124,7 @@ OBJECTS = $(C_OBJECTS) $(ASM_OBJECTS)
 
 nrf52832_xxaa: OUTPUT_FILENAME := nrf52832_xxaa
 nrf52832_xxaa: $(LINKER_SCRIPT)
-nrf52832_xxaa: $(PROJECT_NAME).includes
+nrf52832_xxaa: $(PROJECT_NAME).includes $(PROJECT_NAME).files
 nrf52832_xxaa: $(BUILD_DIRECTORIES) $(OBJECTS)
 	@echo Linking target: $(OUTPUT_FILENAME).out
 	$(NO_ECHO)$(CC) $(LDFLAGS) $(OBJECTS) $(LIBS) -o $(OUTPUT_BINARY_DIRECTORY)/$(OUTPUT_FILENAME).out
@@ -155,6 +155,11 @@ depend: .depend
 $(PROJECT_NAME).includes: .depend
 	@rm -f $(PROJECT_NAME).includes
 	@echo $(INC_PATHS_NODUP) | $(SED) -r 's/ /\n/g' | $(SED) 's/^-I//' > $(PROJECT_NAME).includes
+
+$(PROJECT_NAME).files: .depend
+	@rm -f $(PROJECT_NAME).files
+	tr '\n' ' ' < .depend | sed 's/\\//g' | sed 's/[^ ]*://g' | sed 's/\s\+/\n/g' | sort | uniq > $(PROJECT_NAME).files
+
 
 
 # Assemble files
