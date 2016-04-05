@@ -30,7 +30,7 @@
   ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "u8g/u8g.h"
+#include "u8g.h"
 
 extern u8g_t u8g;
 

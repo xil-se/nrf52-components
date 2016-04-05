@@ -1,7 +1,7 @@
 #ifndef _DRAW_H
 #define _DRAW_H
 
-#include "u8g/u8g.h"
+#include "u8g.h"
 
 void u8g_prepare(void);
 void u8g_box_frame(uint8_t x);

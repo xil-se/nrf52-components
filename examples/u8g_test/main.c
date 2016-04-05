@@ -11,8 +11,8 @@
 
 #include "nrf_delay.h"
 
-#include "u8g/u8g.h"
-#include "u8g/u8g_arm.h"
+#include "u8g.h"
+#include "u8g_arm.h"
 #include "draw.h"
 
 u8g_t u8g;
