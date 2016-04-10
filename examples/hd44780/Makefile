@@ -1,13 +1,13 @@
 ROOT=../..
 
 # Put dependencies you want to include and build here
+include $(ROOT)/platform/delay.mk
 include $(ROOT)/drivers/hd44780/Makefile.mk
 
 
-C_SOURCE_FILES += $(NRF52_SDK)/components/drivers_nrf/delay/nrf_delay.c
 C_SOURCE_FILES += $(wildcard *.c)
 
-INC_PATHS += -I$(NRF52_SDK)/components/drivers_nrf/delay
+INC_PATHS +=
 
 
 # Make sure your linker script is corretly configures
