@@ -10,7 +10,7 @@ C_SOURCE_FILES += $(wildcard *.c)
 INC_PATHS +=
 
 
-# Make sure your linker script is corretly configures
+# Make sure your linker script is corretly configured
 LINKER_SCRIPT = hd44780_gcc_nrf52.ld
 
 

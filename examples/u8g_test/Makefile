@@ -11,7 +11,7 @@ include $(ROOT)/drivers/u8g/Makefile.mk
 include $(ROOT)/platform/delay.mk
 
 
-# Make sure your linker script is corretly configures
+# Make sure your linker script is corretly configured
 LINKER_SCRIPT = u8g_gcc_nrf52.ld
 
 
