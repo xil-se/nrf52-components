@@ -8,22 +8,23 @@
 /*
 PIN CONFIGURATION
 
-SCK    CLOCK        max 4 Mb/s
-MOSI   Data out
-DC     Data/Command (high=data, low=command) - toggle on last bit
-SCE    Chip Enable  (low = active)
-RES    Reset        (low = active)
+U8G_PIN_SCK     SCK    CLOCK        max 4 Mb/s
+U8G_PIN_MOSI    MOSI   Data out
+U8G_PIN_DC      DC     Data/Command (high=data, low=command) - toggle on last bit
+U8G_PIN_SCE     SCE    Chip Enable  (low = active)
+U8G_PIN_RST     RES    Reset        (low = active)
 */
 
 
-#if !defined(U8G_PIN_SCK)
-#error foo
+#if    !defined(U8G_PIN_SCK)  \
+    || !defined(U8G_PIN_DATA) \
+    || !defined(U8G_PIN_DC)   \
+    || !defined(U8G_PIN_SCE)  \
+    || !defined(U8G_PIN_RST)
+
+#   error Check your pin configuration. See nrf52_components_config.h (U8G_PIN_SCK etc)
+
 #endif
-#define U8G_PIN_SCK      (22)
-#define U8G_PIN_DATA     (23)
-#define U8G_PIN_DC       (24)
-#define U8G_PIN_SCE      (25)
-#define U8G_PIN_RST      ( 2)
 
 
 static const nrf_drv_spi_t m_spi_master_0 = NRF_DRV_SPI_INSTANCE(0);
