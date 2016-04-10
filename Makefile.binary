@@ -144,19 +144,19 @@ $(OBJECT_DIRECTORY)/%.o: %.c
 
 # Depend file, editing a header file triggers rebuild on affected sources
 .depend: $(C_SOURCE_FILE_NAMES)
-	@echo Compiling depend file: $(notdir $<)
-	rm -f ./.depend
+	@echo Building depend file
+	@rm -f ./.depend
 	$(NO_ECHO)$(CC) $(CFLAGS) $(INC_PATHS) -MM $^ > ./.depend;
-	$(SED) -i -r 's/^(\w)/$(OBJECT_DIRECTORY)\/\1/g' .depend
-        
-	# Generate QtCreator files
-	# Generate .includes file
+	@$(SED) -i -r 's/^(\w)/$(OBJECT_DIRECTORY)\/\1/g' .depend
+
+	@# Generate QtCreator files
+	@# Generate .includes file
 	@rm -f $(PROJECT_NAME).includes
 	@echo $(INC_PATHS_NODUP) | $(SED) -r 's/ /\n/g' | $(SED) 's/^-I//' > $(PROJECT_NAME).includes
 
-	# Generate .files file
+	@# Generate .files file
 	@rm -f $(PROJECT_NAME).files
-	tr '\n' ' ' < .depend | sed 's/\\//g' | sed 's/[^ ]*://g' | sed 's/\s\+/\n/g' | sort | uniq > $(PROJECT_NAME).files
+	@tr '\n' ' ' < .depend | sed 's/\\//g' | sed 's/[^ ]*://g' | sed 's/\s\+/\n/g' | sort | uniq > $(PROJECT_NAME).files
 
 depend: .depend
 -include .depend
