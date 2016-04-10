@@ -1,0 +1,3 @@
+[submodule "drivers/u8g/u8glib"]
+	path = drivers/u8g/u8glib
+	url = https://github.com/olikraus/u8glib

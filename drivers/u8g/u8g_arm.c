@@ -51,7 +51,7 @@ static void spi_init(int freq)
     }
 }
 
-void u8g_Delay(u8g_t *u8g, uint16_t val)
+void u8g_Delay(uint16_t val)
 {
     nrf_delay_ms(val);
 }

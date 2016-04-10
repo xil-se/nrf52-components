@@ -72,7 +72,8 @@ CFLAGS += -DNRF52
 CFLAGS += -DBSP_DEFINES_ONLY
 CFLAGS += -mcpu=cortex-m4
 CFLAGS += -mthumb -mabi=aapcs --std=gnu99
-CFLAGS += -Wall -Werror -O3
+CFLAGS += -Wall
+CFLAGS += -O3
 CFLAGS += -mfloat-abi=hard -mfpu=fpv4-sp-d16
 # keep every function in separate section. This will allow linker to dump unused functions
 CFLAGS += -ffunction-sections -fdata-sections -fno-strict-aliasing
@@ -147,18 +148,18 @@ $(OBJECT_DIRECTORY)/%.o: %.c
 	rm -f ./.depend
 	$(NO_ECHO)$(CC) $(CFLAGS) $(INC_PATHS) -MM $^ > ./.depend;
 	$(SED) -i -r 's/^(\w)/$(OBJECT_DIRECTORY)\/\1/g' .depend
-
-depend: .depend
--include .depend
-
-# Generate QtCreator includes file
-$(PROJECT_NAME).includes: .depend
+        
+	# Generate QtCreator files
+	# Generate .includes file
 	@rm -f $(PROJECT_NAME).includes
 	@echo $(INC_PATHS_NODUP) | $(SED) -r 's/ /\n/g' | $(SED) 's/^-I//' > $(PROJECT_NAME).includes
 
-$(PROJECT_NAME).files: .depend
+	# Generate .files file
 	@rm -f $(PROJECT_NAME).files
 	tr '\n' ' ' < .depend | sed 's/\\//g' | sed 's/[^ ]*://g' | sed 's/\s\+/\n/g' | sort | uniq > $(PROJECT_NAME).files
+
+depend: .depend
+-include .depend
 
 
 

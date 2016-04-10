@@ -62,7 +62,7 @@ int main(void)
         draw_state++;
 
         /* refresh screen after some delay */
-        u8g_Delay(&u8g, 1000);
+        u8g_Delay(1000);
     }
 }
 
