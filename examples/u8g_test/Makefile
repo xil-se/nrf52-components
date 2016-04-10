@@ -3,7 +3,8 @@ ROOT=../..
 C_SOURCE_FILES += $(NRF52_SDK)/components/drivers_nrf/delay/nrf_delay.c
 C_SOURCE_FILES += $(wildcard *.c)
 
-INC_PATHS += -I.
+INC_PATHS  = -I.
+INC_PATHS += -I$(ROOT)/config
 INC_PATHS += -I$(NRF52_SDK)/components/drivers_nrf/delay
 
 

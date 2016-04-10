@@ -3,6 +3,7 @@
 #include "nrf_drv_spi.h"
 #include "nrf_gpio.h"
 #include "app_util_platform.h"
+#include "nrf52_components_config.h"
 
 /*
 PIN CONFIGURATION
@@ -14,11 +15,15 @@ SCE    Chip Enable  (low = active)
 RES    Reset        (low = active)
 */
 
-#define U8G_PIN_SCK      (11)
-#define U8G_PIN_DATA     (12)
-#define U8G_PIN_DC       (13)
-#define U8G_PIN_SCE      (14)
-#define U8G_PIN_RST      (15)
+
+#if !defined(U8G_PIN_SCK)
+#error foo
+#endif
+#define U8G_PIN_SCK      (22)
+#define U8G_PIN_DATA     (23)
+#define U8G_PIN_DC       (24)
+#define U8G_PIN_SCE      (25)
+#define U8G_PIN_RST      ( 2)
 
 
 static const nrf_drv_spi_t m_spi_master_0 = NRF_DRV_SPI_INSTANCE(0);
