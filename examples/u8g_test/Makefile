@@ -9,6 +9,7 @@ INC_PATHS += -I$(ROOT)/config
 # Put dependencies you want to include and build here
 include $(ROOT)/drivers/u8g/Makefile.mk
 include $(ROOT)/platform/delay.mk
+include $(ROOT)/platform/spi.mk
 
 
 # Make sure your linker script is corretly configured
