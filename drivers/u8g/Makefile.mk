@@ -7,14 +7,14 @@ $(NRF52_SDK)/components/drivers_nrf/common/nrf_drv_common.c  \
 $(NRF52_SDK)/components/drivers_nrf/gpiote/nrf_drv_gpiote.c  \
 $(NRF52_SDK)/components/drivers_nrf/spi_master/nrf_drv_spi.c \
 $(wildcard $(ROOT)/drivers/u8g/*.c)                          \
-$(wildcard $(ROOT)/drivers/u8g/u8glib/csrc/*.c)              \
-$(wildcard $(ROOT)/drivers/u8g/u8glib/fntsrc/*.c)            \
+$(wildcard $(ROOT)/external/u8glib/csrc/*.c)                 \
+$(wildcard $(ROOT)/external/u8glib/fntsrc/*.c)               \
 
 
 INC_PATHS += -I$(NRF52_SDK)/components/toolchain/gcc
 INC_PATHS += -I$(NRF52_SDK)/components/toolchain
 INC_PATHS += -I$(ROOT)/drivers/u8g
-INC_PATHS += -I$(ROOT)/drivers/u8g/u8glib/csrc
+INC_PATHS += -I$(ROOT)/external/u8glib/csrc
 INC_PATHS += -I$(NRF52_SDK)/components/device
 INC_PATHS += -I$(NRF52_SDK)/components/drivers_nrf/nrf_soc_nosd
 INC_PATHS += -I$(NRF52_SDK)/components/drivers_nrf/delay
