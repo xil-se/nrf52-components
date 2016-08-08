@@ -35,3 +35,12 @@
 # QtCreator
 *.includes
 *.files
+
+# Build output
+_build
+
+# Qt creator generated files
+*.config
+*.creator
+*.creator.user
+
