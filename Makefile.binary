@@ -4,6 +4,12 @@ endif
 
 REAL_PWD=$(shell echo $$PWD)
 
+NRFJPROG         ?= nrfjprog
+OPENOCD          ?= openocd
+OPENOCD_IFACE    ?= interface/stlink-v2-1.cfg
+OPENOCD_TARGET   ?= target/nrf52.cfg
+
+
 ifeq ("$(PROJECT_NAME)","")
 PROJECT_NAME := $(lastword $(subst /, , $(REAL_PWD)))
 endif
@@ -131,6 +137,7 @@ nrf52832_xxaa: $(BUILD_DIRECTORIES) $(OBJECTS)
 	$(NO_ECHO)$(CC) $(LDFLAGS) $(OBJECTS) $(LIBS) -o $(OUTPUT_BINARY_DIRECTORY)/$(OUTPUT_FILENAME).out
 	$(NO_ECHO)$(MAKE) -f $(MAKEFILE_NAME) -C $(MAKEFILE_DIR) -e finalize
 
+
 ## Create build directories
 $(BUILD_DIRECTORIES):
 	echo $(MAKEFILE_NAME)
@@ -170,7 +177,7 @@ $(OBJECT_DIRECTORY)/%.o: %.s
 
 
 # Link
-$(OUTPUT_BINARY_DIRECTORY)/$(OUTPUT_FILENAME).out: $(BUILD_DIRECTORIES) $(OBJECTS)
+$(OUTPUT_BINARY_DIRECTORY)/$(OUTPUT_FILENAME).out: check_sdk_path $(BUILD_DIRECTORIES) $(OBJECTS)
 	@echo Linking target: $(OUTPUT_FILENAME).out
 	$(NO_ECHO)$(CC) $(LDFLAGS) $(OBJECTS) $(LIBS) -o $(OUTPUT_BINARY_DIRECTORY)/$(OUTPUT_FILENAME).out
 
@@ -207,11 +214,16 @@ clean:
 cleanobj:
 	$(RM) $(BUILD_DIRECTORIES)/*.o
 
-flash: $(MAKECMDGOALS)
+deploy: $(MAKECMDGOALS)
 	@echo Flashing: $(OUTPUT_BINARY_DIRECTORY)/nrf52832_xxaa.hex
-	nrfjprog --erasepage 0x0-0x80000 -f nrf52
-	nrfjprog --program $(OUTPUT_BINARY_DIRECTORY)/nrf52832_xxaa.hex -f nrf52
-	nrfjprog --reset
+	$(NRFJPROG) --erasepage 0x0-0x80000 -f nrf52
+	$(NRFJPROG) --program $(OUTPUT_BINARY_DIRECTORY)/nrf52832_xxaa.hex -f nrf52
+	$(NRFJPROG) --reset
+
+deploy-openocd: $(MAKECMDGOALS)
+	@echo Flashing: $(OUTPUT_BINARY_DIRECTORY)/nrf52832_xxaa.hex
+	$(OPENOCD) -f $(OPENOCD_IFACE) -f $(OPENOCD_TARGET) -c "init" -c "reset halt" -c "program $(OUTPUT_BINARY_DIRECTORY)/nrf52832_xxaa.hex 0 verify" -c "reset run" -c "exit"
+
 
 ## Flash softdevice
 
