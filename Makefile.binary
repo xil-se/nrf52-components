@@ -59,6 +59,7 @@ ASM_SOURCE_FILES  = $(NRF52_SDK)/components/toolchain/gcc/gcc_startup_nrf52.s
 #includes common to all targets
 INC_PATHS += -I$(NRF52_SDK)/components/toolchain/gcc
 INC_PATHS += -I$(NRF52_SDK)/components/toolchain
+INC_PATHS += -I$(NRF52_SDK)/components/toolchain/CMSIS/Include/
 INC_PATHS += -I.
 INC_PATHS += -I$(NRF52_SDK)/components/device
 INC_PATHS_NODUP = $(call remduplicates, $(INC_PATHS))
