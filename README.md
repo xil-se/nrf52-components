@@ -7,11 +7,12 @@ It also contains some example applications.
 This repository is basically just a playground, not something to depend on or trust.
 
 Modules/drivers:
-- [X] hd44780
-- [X] u8glib
-- [X] uart
+- [x] hd44780
+- [x] u8glib
+- [x] uart
 - [ ] uart proxy (forward from one uart to another)
 - [ ] SD card
-- ... Feel free to come up with more suggestions
+
+Feel free to create issues with feature requests.
 
 
