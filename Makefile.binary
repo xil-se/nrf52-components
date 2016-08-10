@@ -188,9 +188,9 @@ cleanobj:
 
 deploy: $(MAKECMDGOALS)
 	@echo Flashing: $(OUTPUT_BINARY_DIRECTORY)/firmware.hex
-	$(NRFJPROG) --erasepage 0x0-0x80000 -f nrf52
-	$(NRFJPROG) --program $(OUTPUT_BINARY_DIRECTORY)/firmware.hex -f nrf52
-	$(NRFJPROG) --reset
+	$(NRFJPROG) --erasepage 0x0-0x80000 -f $(NRF_TARGET)
+	$(NRFJPROG) --program $(OUTPUT_BINARY_DIRECTORY)/firmware.hex -f $(NRF_TARGET)
+	$(NRFJPROG) --reset -f $(NRF_TARGET)
 
 deploy-openocd: $(MAKECMDGOALS)
 	@echo Flashing: $(OUTPUT_BINARY_DIRECTORY)/firmware.hex
