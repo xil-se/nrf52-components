@@ -12,10 +12,10 @@ include $(ROOT)/platform/spi.mk
 include $(ROOT)/platform/uart.mk
 
 
-C_SOURCE_FILES += $(NRF52_SDK)/components/drivers_nrf/delay/nrf_delay.c
+C_SOURCE_FILES += $(NRF5_SDK)/components/drivers_nrf/delay/nrf_delay.c
 C_SOURCE_FILES += $(wildcard *.c)
 
-INC_PATHS += -I$(NRF52_SDK)/components/drivers_nrf/delay
+INC_PATHS += -I$(NRF5_SDK)/components/drivers_nrf/delay
 
 
 # Make sure your linker script is corretly configures

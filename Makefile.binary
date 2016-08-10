@@ -1,5 +1,5 @@
-ifeq ("$(NRF52_SDK)","")
-$(error Please set the enviroment variable NRF52_SDK to the root of the sdk)
+ifeq ("$(NRF5_SDK)","")
+$(error Please set the enviroment variable NRF5_SDK to the root of the sdk)
 endif
 
 REAL_PWD=$(shell echo $$PWD)
@@ -18,7 +18,7 @@ export OUTPUT_FILENAME
 MAKEFILE_NAME := $(MAKEFILE_LIST)
 MAKEFILE_DIR := $(dir $(MAKEFILE_NAME) )
 
-TEMPLATE_PATH = $(NRF52_SDK)/components/toolchain/gcc
+TEMPLATE_PATH = $(NRF5_SDK)/components/toolchain/gcc
 ifeq ($(OS),Windows_NT)
 include $(TEMPLATE_PATH)/Makefile.windows
 else
@@ -50,18 +50,18 @@ remduplicates = $(strip $(if $1,$(firstword $1) $(call remduplicates,$(filter-ou
 
 #source common to all targets
 C_SOURCE_FILES += \
-$(NRF52_SDK)/components/toolchain/system_nrf52.c \
+$(NRF5_SDK)/components/toolchain/system_nrf52.c \
 ./main.c \
 
 #assembly files common to all targets
-ASM_SOURCE_FILES  = $(NRF52_SDK)/components/toolchain/gcc/gcc_startup_nrf52.s
+ASM_SOURCE_FILES  = $(NRF5_SDK)/components/toolchain/gcc/gcc_startup_nrf52.s
 
 #includes common to all targets
-INC_PATHS += -I$(NRF52_SDK)/components/toolchain/gcc
-INC_PATHS += -I$(NRF52_SDK)/components/toolchain
-INC_PATHS += -I$(NRF52_SDK)/components/toolchain/CMSIS/Include/
+INC_PATHS += -I$(NRF5_SDK)/components/toolchain/gcc
+INC_PATHS += -I$(NRF5_SDK)/components/toolchain
+INC_PATHS += -I$(NRF5_SDK)/components/toolchain/CMSIS/Include/
 INC_PATHS += -I.
-INC_PATHS += -I$(NRF52_SDK)/components/device
+INC_PATHS += -I$(NRF5_SDK)/components/device
 INC_PATHS_NODUP = $(call remduplicates, $(INC_PATHS))
 
 

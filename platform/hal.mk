@@ -3,5 +3,5 @@
 
 C_SOURCE_FILES +=
 
-INC_PATHS += -I$(NRF52_SDK)/components/drivers_nrf/hal
+INC_PATHS += -I$(NRF5_SDK)/components/drivers_nrf/hal
 
