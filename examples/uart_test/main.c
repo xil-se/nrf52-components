@@ -40,6 +40,7 @@ void uart_error_handle(app_uart_evt_t * p_event)
 int main(void)
 {
     uint32_t err_code;
+    (void)err_code;
 
     const app_uart_comm_params_t comm_params =
     {
