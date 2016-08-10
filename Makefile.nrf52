@@ -1,0 +1,29 @@
+#flags common to all targets
+CFLAGS += -DCONFIG_GPIO_AS_PINRESET
+CFLAGS += -DBOARD_PCA10040
+CFLAGS += -DNRF52
+CFLAGS += -DBSP_DEFINES_ONLY
+CFLAGS += -mcpu=cortex-m4
+CFLAGS += -mthumb -mabi=aapcs --std=gnu99
+CFLAGS += -Wall -O3 -g3
+CFLAGS += -mfloat-abi=hard -mfpu=fpv4-sp-d16
+# keep every function in separate section. This will allow linker to dump unused functions
+CFLAGS += -ffunction-sections -fdata-sections -fno-strict-aliasing
+CFLAGS += -fno-builtin --short-enums
+
+# keep every function in separate section. This will allow linker to dump unused functions
+LDFLAGS += -Xlinker -Map=$(LISTING_DIRECTORY)/$(OUTPUT_FILENAME).map
+LDFLAGS += -mthumb -mabi=aapcs -L $(TEMPLATE_PATH) -T$(LINKER_SCRIPT)
+LDFLAGS += -mcpu=cortex-m4
+LDFLAGS += -mfloat-abi=hard -mfpu=fpv4-sp-d16
+# let linker to dump unused sections
+LDFLAGS += -Wl,--gc-sections
+# use newlib in nano version
+LDFLAGS += --specs=nano.specs -lc -lnosys
+
+# Assembler flags
+ASMFLAGS += -x assembler-with-cpp
+ASMFLAGS += -DBOARD_PCA10040
+ASMFLAGS += -DNRF52
+ASMFLAGS += -DBSP_DEFINES_ONLY
+ASMFLAGS += -DCONFIG_GPIO_AS_PINRESET
