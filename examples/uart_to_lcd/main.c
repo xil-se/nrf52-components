@@ -27,7 +27,9 @@
 
 u8g_t u8g;
 
-char buf[14*5] = ">";
+#define LCD_WIDTH  14
+#define LCD_LINES   5
+char buf[LCD_WIDTH * LCD_LINES] = { 0 };
 int uart_pos = 1;
 
 
@@ -44,9 +46,21 @@ void uart_error_handle(app_uart_evt_t * p_event)
     else if (p_event->evt_type == APP_UART_DATA)
     {
         // When we get a byte from UART, echo it and update our buffer.
-        app_uart_get(&buf[uart_pos]);
-        app_uart_put(buf[uart_pos]);
-        uart_pos = (uart_pos + 1) % sizeof(buf);
+        uint8_t chr;
+        app_uart_get(&chr);
+        app_uart_put(chr);
+        if (chr == '\r') {
+            uart_pos = (uart_pos + LCD_WIDTH) % sizeof(buf);
+            uart_pos = uart_pos - (uart_pos % LCD_WIDTH);
+        }
+        else if (chr == '\b') {
+            uart_pos = (uart_pos - 1) >= 0 ? (uart_pos - 1) : 0;
+            buf[uart_pos] = ' ';
+        }
+        else {
+            buf[uart_pos] = chr;
+            uart_pos = (uart_pos + 1) % sizeof(buf);
+        }
     }
 }
 
@@ -113,6 +127,7 @@ void init_uart() {
 int main(void)
 {
     init_uart();
+    buf[0] = '>';
 
     u8g_InitComFn(&u8g, &u8g_dev_pcd8544_84x48_hw_spi, u8g_com_hw_spi_fn);
     u8g_SetRot180(&u8g);
