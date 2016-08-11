@@ -12,7 +12,6 @@ ifeq ("$(PROJECT_NAME)","")
 PROJECT_NAME := $(lastword $(subst /, , $(REAL_PWD)))
 endif
 
-export OUTPUT_FILENAME
 MAKEFILE_NAME := $(MAKEFILE_LIST)
 MAKEFILE_DIR := $(dir $(MAKEFILE_NAME) )
 
@@ -49,7 +48,7 @@ remduplicates = $(strip $(if $1,$(firstword $1) $(call remduplicates,$(filter-ou
 #source common to all targets
 C_SOURCE_FILES += \
 $(NRF5_SDK)/components/toolchain/system_$(NRF_TARGET).c \
-./main.c \
+
 
 #assembly files common to all targets
 ASM_SOURCE_FILES  = $(NRF5_SDK)/components/toolchain/gcc/gcc_startup_$(NRF_TARGET).s
@@ -66,6 +65,7 @@ INC_PATHS_NODUP = $(call remduplicates, $(INC_PATHS))
 OBJECT_DIRECTORY = _build
 LISTING_DIRECTORY = $(OBJECT_DIRECTORY)
 OUTPUT_BINARY_DIRECTORY = $(OBJECT_DIRECTORY)
+OUTPUT_FILENAME := firmware-$(NRF_TARGET)
 
 # Sorting removes duplicates
 BUILD_DIRECTORIES := $(sort $(OBJECT_DIRECTORY) $(OUTPUT_BINARY_DIRECTORY) $(LISTING_DIRECTORY) )
@@ -101,7 +101,6 @@ vpath %.s $(ASM_PATHS)
 
 OBJECTS = $(C_OBJECTS) $(ASM_OBJECTS)
 
-firmware: OUTPUT_FILENAME := firmware
 firmware: $(LINKER_SCRIPT)
 firmware: $(PROJECT_NAME).includes $(PROJECT_NAME).files
 firmware: $(BUILD_DIRECTORIES) $(OBJECTS)
@@ -187,17 +186,17 @@ cleanobj:
 	$(RM) $(BUILD_DIRECTORIES)/*.o
 
 deploy: $(MAKECMDGOALS)
-	@echo Flashing: $(OUTPUT_BINARY_DIRECTORY)/firmware.hex
+	@echo Flashing: $(OUTPUT_BINARY_DIRECTORY)/$(OUTPUT_FILENAME).hex
 	$(NRFJPROG) --erasepage 0x0-0x80000 -f $(NRF_TARGET)
-	$(NRFJPROG) --program $(OUTPUT_BINARY_DIRECTORY)/firmware.hex -f $(NRF_TARGET)
+	$(NRFJPROG) --program $(OUTPUT_BINARY_DIRECTORY)/$(OUTPUT_FILENAME).hex -f $(NRF_TARGET)
 	$(NRFJPROG) --reset -f $(NRF_TARGET)
 
 deploy-openocd: $(MAKECMDGOALS)
-	@echo Flashing: $(OUTPUT_BINARY_DIRECTORY)/firmware.hex
-	$(OPENOCD) -f $(OPENOCD_IFACE) -f $(OPENOCD_TARGET) -c "init" -c "reset halt" -c "program $(OUTPUT_BINARY_DIRECTORY)/firmware.hex 0 verify" -c "reset run" -c "exit"
+	@echo Flashing: $(OUTPUT_BINARY_DIRECTORY)/$(OUTPUT_FILENAME).hex
+	$(OPENOCD) -f $(OPENOCD_IFACE) -f $(OPENOCD_TARGET) -c "init" -c "reset halt" -c "program $(OUTPUT_BINARY_DIRECTORY)/$(OUTPUT_FILENAME).hex 0 verify" -c "reset run" -c "exit"
 
 erase-openocd: $(MAKECMDGOALS)
-	@echo Flashing: $(OUTPUT_BINARY_DIRECTORY)/firmware.hex
+	@echo Erasing...
 	$(OPENOCD) -f $(OPENOCD_IFACE) -f $(OPENOCD_TARGET) -c "init; reset halt; $(NRF_TARGET) mass_erase; shutdown"
 
 
