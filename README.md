@@ -19,10 +19,10 @@ Feel free to create issues with feature requests.
 
 ### Examples
 
-  | Location                   | Description  |
-  | -------------------------- |:------------:|
-  | /examples/hd44780          | Prints text to a 2-row hd44780 display using the provided driver. |
-  | /examples/u8g_test         | Displays test graphics on an LCD usisng U8G |
-  | /examples/uart_test        | Prints text to UART and echos input. |
-  | /examples/uart_to_lcd      | Echos UART and prints received bytes on an LCD using U8G. |
+| Location                     | Description  |
+| ---------------------------- |:------------:|
+| `/examples/hd44780`          | Prints text to a 2-row hd44780 display using the provided driver. |
+| `/examples/u8g_test`         | Displays test graphics on an LCD usisng U8G |
+| `/examples/uart_test`        | Prints text to UART and echos input. |
+| `/examples/uart_to_lcd`      | Echos UART and prints received bytes on an LCD using U8G. |
 
