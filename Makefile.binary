@@ -181,6 +181,7 @@ echosize:
 
 clean:
 	$(RM) $(BUILD_DIRECTORIES)
+	$(RM) .depend
 
 cleanobj:
 	$(RM) $(BUILD_DIRECTORIES)/*.o
